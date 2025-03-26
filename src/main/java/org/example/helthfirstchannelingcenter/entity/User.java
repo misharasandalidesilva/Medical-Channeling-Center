@@ -23,7 +23,8 @@ public class User implements Serializable {
     private String name;
     private String username;
     private String nic;
-    private String phone;
+    private String age;
+    private String contactNumber;
     @Column(unique = true)
     private String email;
     private String address;

@@ -1,30 +1,26 @@
 package org.example.helthfirstchannelingcenter.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.UUID;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserDTO implements UserDetails {
+public class UserDTO {
+    private UUID uid;
     private String name;
-    private String username;
+    private String userName;
     private String nic;
-    private String phone;
+    private String age;
+    private String contactNumber;
+    @Column(unique = true)
     private String email;
     private String address;
     private String password;
     private String role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
 }

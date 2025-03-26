@@ -14,7 +14,7 @@
             justify-content: center;
         }
         .login-container {
-            background: white;
+            background: #dde6ec;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -41,14 +41,17 @@
     <h3 class="mb-3">Login</h3>
     <form>
         <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Enter Email" required>
+            <input type="email"id="email" class="form-control" placeholder="Enter Email" required>
         </div>
         <div class="mb-3">
-            <input type="password" class="form-control" placeholder="Enter Password" required>
+            <input type="password" id="password" class="form-control" placeholder="Enter Password" required>
         </div>
-        <button type="submit" class="btn btn-primary w-100">Login</button>
+        <button type="submit" id="loginBTN" class="btn btn-primary w-100">Login</button>
     </form>
     <p class="mt-3"><a href="#" class="text-decoration-none">Forgot Password?</a></p>
 </div>
+
+<script src = "jq/jquery-3.7.1.min.js"></script>
+<script src="js/Login.js"></script>
 </body>
 </html>

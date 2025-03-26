@@ -1,7 +1,6 @@
 package org.example.helthfirstchannelingcenter.config;
 
 import org.example.helthfirstchannelingcenter.service.impl.UserServiceImpl;
-import org.example.helthfirstchannelingcenter.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,12 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-/**
- * @author udarasan
- * @TimeStamp 2023-07-15 15:00
- * @ProjectDetails invoice_service
- */
 
 @EnableWebSecurity
 @Configuration
@@ -54,7 +47,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/authenticate",
-                                "/api/v1/driver/save",
+                                "/api/v1/user/save",
                                 "/api/v1/user/register",
                                 "/api/v1/auth/refreshToken",
                                 "/v3/api-docs/**",
