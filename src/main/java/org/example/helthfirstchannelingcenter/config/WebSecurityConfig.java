@@ -47,9 +47,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/authenticate",
-                                "/api/v1/user/save",
                                 "/api/v1/user/register",
                                 "/api/v1/auth/refreshToken",
+                                "api/v1/bookappoinment/getallAppointments",
+                                "/api/v1/bookappoinment/cancel/{appId}",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()

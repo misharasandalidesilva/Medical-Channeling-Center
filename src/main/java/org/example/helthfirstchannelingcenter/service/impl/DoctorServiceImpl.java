@@ -1,7 +1,6 @@
 package org.example.helthfirstchannelingcenter.service.impl;
 
 import jakarta.transaction.Transactional;
-import org.example.helthfirstchannelingcenter.controller.DoctorController;
 import org.example.helthfirstchannelingcenter.dto.DoctorDTO;
 import org.example.helthfirstchannelingcenter.entity.Doctor;
 import org.example.helthfirstchannelingcenter.repo.DoctorRepository;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -30,11 +30,6 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDTO;
     }
 
-    @Override
-    public String deleteDoctor(long did) {
-        doctorRepository.deleteById(did);
-        return "Doctor with ID " + did + " deleted successfully";
-    }
 
     @Override
     public List<DoctorDTO> getAllDoctors() {
@@ -42,9 +37,20 @@ public class DoctorServiceImpl implements DoctorService {
         return doctors.stream().map(doctor -> modelMapper.map(doctor, DoctorDTO.class)).toList();
     }
 
-
-    public DoctorDTO updateDoctor(DoctorDTO doctorDTO) {
-        doctorRepository.save(modelMapper.map(doctorDTO, Doctor.class));
-        return doctorDTO;
+    @Override
+    public int deleteDoctor(UUID id) {
+        doctorRepository.deleteById(id);
+        return VarList.OK;
     }
+
+    @Override
+    public DoctorDTO updateDoctor(DoctorDTO doctorDTO){
+        if (doctorRepository.existsById(doctorDTO.getDid())) {
+            return modelMapper.map(doctorRepository.save(modelMapper.map(doctorDTO, Doctor.class)), DoctorDTO.class);
+        } else {
+           return doctorDTO;
+
+        }
+    }
+
 }

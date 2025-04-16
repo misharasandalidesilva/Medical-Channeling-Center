@@ -13,6 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.Role;
+
 @RestController
 @RequestMapping("api/v1/auth")
 @CrossOrigin(origins = "http://localhost:63342/")
@@ -41,7 +43,7 @@ public class AuthController {
                     .body(new ResponseDTO(VarList.Unauthorized, "Invalid Credentials", e.getMessage()));
         }
 
-        UserDTO loadedUser = (UserDTO) userService.loadUserByUsername(userDTO.getEmail());
+        UserDTO loadedUser = userService.loadUserDetailsByUsername(userDTO.getEmail());
         if (loadedUser == null) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ResponseDTO(VarList.Conflict, "Authorization Failure! Please Try Again", null));
@@ -56,6 +58,13 @@ public class AuthController {
         AuthDTO authDTO = new AuthDTO();
         authDTO.setEmail(loadedUser.getEmail());
         authDTO.setToken(token);
+        authDTO.setRole(loadedUser.getRole());
+        authDTO.setId(loadedUser.getUid());
+        System.out.println(token);
+
+        System.out.println("login success");
+        System.out.println(authDTO);
+        System.out.println("logging Id: " + loadedUser.getUid());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDTO(VarList.Created, "Success", authDTO));

@@ -1,14 +1,14 @@
 package org.example.helthfirstchannelingcenter.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,15 +16,21 @@ import java.time.LocalDate;
 @Data
 public class BookAppoinment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column( columnDefinition = "VARCHAR(36)", unique = true, nullable = false)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private UUID AppId;
     private String fullName;
-    private String email;
     private String phone;
-    private LocalDate appointmentDate;
-    private String doctor;
+    private String doctorName;
+    private String appointmentDate;
     private String message;
+
+    @ManyToOne
+    private User user;
+
 }
+
 
 
 
