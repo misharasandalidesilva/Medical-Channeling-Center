@@ -6,16 +6,24 @@ A Private Medical Channeling Center is a healthcare facility that specializes in
 
 Patient Registration & Profile Management
 🔹 New patients can register online or at the reception desk.
+
 🔹 Required details: Name, Age, Contact, Medical History, Preferred Doctor.
+
 🔹 A unique Patient ID is generated and stored in the system.
+
 🔹 Returning patients can log in to view their history & upcoming appointments.
+
  Outcome: Patients are successfully added to the system for future appointments & medical record tracking.
 
 Doctor & Appointment Scheduling
 🔹 Patients can browse available doctors by specialty, date, and time slots.
+
 🔹 The system displays available slots in real-time.
+
 🔹 The patient selects a doctor and books an appointment online or via reception.
+
 🔹 The system sends SMS/email confirmation to the patient and doctor.
+
  Outcome: An appointment is successfully booked, and notifications are sent.
 
 Check-in & Queue Management
