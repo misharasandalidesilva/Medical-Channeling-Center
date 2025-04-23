@@ -8,7 +8,6 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -21,22 +20,10 @@ public class User implements Serializable {
     @Column(name = "uid", columnDefinition = "VARCHAR(36)", unique = true, nullable = false)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID uid;
-    private String name;
-    private String nic;
-    private String age;
     private String contactNumber;
-    @Column(unique = true)
     private String email;
-    private String address;
     private String password;
     private String role;
 
-    User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<BookAppoinment> bookAppoinments;
 }
 

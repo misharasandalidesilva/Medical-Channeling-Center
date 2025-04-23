@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -27,7 +26,7 @@ public class BookAppoinment {
     private String message;
 
     @ManyToOne
-    private User user;
+    private Patient patient;
 
 }
 

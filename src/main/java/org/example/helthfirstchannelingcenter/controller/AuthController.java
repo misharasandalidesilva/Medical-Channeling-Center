@@ -13,8 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.relation.Role;
-
 @RestController
 @RequestMapping("api/v1/auth")
 @CrossOrigin(origins = "http://localhost:63342/")

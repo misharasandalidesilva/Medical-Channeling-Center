@@ -1,6 +1,5 @@
 package org.example.helthfirstchannelingcenter.service.impl;
 
-import jakarta.transaction.Transactional;
 import org.example.helthfirstchannelingcenter.dto.BookAppoinmentDTO;
 import org.example.helthfirstchannelingcenter.entity.BookAppoinment;
 import org.example.helthfirstchannelingcenter.repo.BookAppoinmentRepository;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,13 +24,6 @@ public class BookAppoinmentImpl implements BookAppoinmentService {
     @Autowired
     private BookAppoinmentRepository bookAppoinmentRepository;
 
-
-
-    @Override
-    public List<BookAppoinmentDTO> getAllAppointments() {
-        List<BookAppoinment> appointments = bookAppoinmentRepository.findAll();
-        return appointments.stream().map(appointment -> modelMapper.map(appointment, BookAppoinmentDTO.class)).toList();
-    }
 
 
     @Override
@@ -51,7 +42,23 @@ public class BookAppoinmentImpl implements BookAppoinmentService {
         return VarList.Created;
     }
 
+    @Override
+    public List<BookAppoinmentDTO> getAppoinmentsPatientId(UUID pid) {
+        List<BookAppoinment> appointments = bookAppoinmentRepository.findByPatient_pid(pid);
+        return appointments.stream().map(appointment -> modelMapper.map(appointment, BookAppoinmentDTO.class)).toList();
+    }
 
+    @Override
+    public List<BookAppoinmentDTO> getAppoinmentsDoctorName(String name) {
+        List<BookAppoinment> appointments = bookAppoinmentRepository.findByDoctorName(name);
+        return appointments.stream().map(appointment -> modelMapper.map(appointment, BookAppoinmentDTO.class)).toList();
+    }
+
+    @Override
+    public List<BookAppoinmentDTO> getAllAppointments() {
+        List<BookAppoinment> appointments = bookAppoinmentRepository.findAll();
+        return appointments.stream().map(appointment -> modelMapper.map(appointment, BookAppoinmentDTO.class)).toList();
+    }
 }
 
 

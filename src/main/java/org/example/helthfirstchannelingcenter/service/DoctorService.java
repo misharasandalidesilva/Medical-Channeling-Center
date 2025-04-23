@@ -14,4 +14,6 @@ public interface DoctorService{
     int deleteDoctor(UUID id);
 
     DoctorDTO updateDoctor(DoctorDTO doctorDTO) throws Exception;
+
+    DoctorDTO getDoctorByUserId(UUID userId);
 }

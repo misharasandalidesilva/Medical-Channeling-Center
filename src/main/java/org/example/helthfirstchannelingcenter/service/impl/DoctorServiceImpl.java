@@ -1,6 +1,6 @@
 package org.example.helthfirstchannelingcenter.service.impl;
 
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityNotFoundException;
 import org.example.helthfirstchannelingcenter.dto.DoctorDTO;
 import org.example.helthfirstchannelingcenter.entity.Doctor;
 import org.example.helthfirstchannelingcenter.repo.DoctorRepository;
@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@Transactional
 public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
@@ -48,9 +47,20 @@ public class DoctorServiceImpl implements DoctorService {
         if (doctorRepository.existsById(doctorDTO.getDid())) {
             return modelMapper.map(doctorRepository.save(modelMapper.map(doctorDTO, Doctor.class)), DoctorDTO.class);
         } else {
-           return doctorDTO;
+            return doctorDTO;
 
         }
     }
+
+    @Override
+    public DoctorDTO getDoctorByUserId(UUID userId) {
+        Doctor doctor = (Doctor) doctorRepository.findByUser_Uid(userId);
+        if (doctor == null) {
+            throw new EntityNotFoundException("Doctor not found for user ID: " + userId);
+        }
+        return modelMapper.map(doctor, DoctorDTO.class);
+    }
+
+
 
 }

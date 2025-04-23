@@ -8,7 +8,6 @@ import org.example.helthfirstchannelingcenter.utill.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     @PostMapping("/savedoctor")
     public ResponseEntity<ResponseDTO> saveDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         try {
@@ -33,7 +32,7 @@ public class DoctorController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     @PutMapping("/updatedoctor")
     public ResponseEntity<ResponseDTO> updateDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         try {
@@ -43,7 +42,6 @@ public class DoctorController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/deletedoctor/{id}")
     public ResponseEntity<ResponseDTO> deleteDoctor(@PathVariable UUID id) {
         try {
@@ -53,9 +51,21 @@ public class DoctorController {
         }
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     @GetMapping("/getdoctors")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
         return ResponseEntity.ok(doctorService.getAllDoctors());
     }
+
+    @GetMapping("/getdoctorName")
+    public ResponseEntity<List<String>> getdoctorName() {
+        return ResponseEntity.ok(doctorService.getAllDoctors().stream().map(DoctorDTO::getName).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/getdoctor/{userId}")
+    public ResponseEntity<DoctorDTO> getDoctorByUserId(@PathVariable UUID userId) {
+        DoctorDTO doctor = doctorService.getDoctorByUserId(userId);
+        return ResponseEntity.ok(doctor);
+    }
+
 }

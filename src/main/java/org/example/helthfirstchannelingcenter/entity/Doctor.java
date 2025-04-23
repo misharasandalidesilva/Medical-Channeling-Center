@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -22,8 +21,13 @@ public class Doctor {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID did;
     private String name;
+    private String gender;
+    private String birthday;
+    private String address;
     private String specialization;
-    private String contactNumber;
-    private String email;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "user_id", referencedColumnName = "uid")
+    private User user;
 
 }
