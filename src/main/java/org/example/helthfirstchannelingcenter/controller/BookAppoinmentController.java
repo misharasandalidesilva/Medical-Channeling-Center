@@ -7,6 +7,7 @@ import org.example.helthfirstchannelingcenter.service.BookAppoinmentService;
 import org.example.helthfirstchannelingcenter.utill.VarList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class BookAppoinmentController {
         this.bookAppoinmentService = bookAppoinmentService;
     }
 
+    @PreAuthorize("hasAnyAuthority('PATIENT')")
     @PostMapping("/saveAppoinments")
     public ResponseEntity<ResponseDTO> saveAppoinments(@Valid @RequestBody BookAppoinmentDTO bookAppoinmentDTO) {
         System.out.println(bookAppoinmentDTO);
@@ -46,13 +48,14 @@ public class BookAppoinmentController {
     }
 
 
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/getallAppointments")
     public List<BookAppoinmentDTO> getAllAppointments() {
         return bookAppoinmentService.getAllAppointments();
     }
 
 
+    @PreAuthorize("hasAnyAuthority('PATIENT')")
     @DeleteMapping("/cancel/{appId}")
     public ResponseEntity<ResponseDTO> deleteAppoinment(@PathVariable UUID appId) {
         try {
@@ -73,10 +76,12 @@ public class BookAppoinmentController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('PATIENT', 'ADMIN')")
     @GetMapping("/getAppoinmentsPatientId/{pid}")
     public List<BookAppoinmentDTO> getAppoinmentsPatientId(@PathVariable UUID pid) {
         return bookAppoinmentService.getAppoinmentsPatientId(pid);
     }
+
 
     @GetMapping("/getAppoinmentsDoctor/{name}")
     public List<BookAppoinmentDTO> getAppoinmentsDoctor(@PathVariable String name) {

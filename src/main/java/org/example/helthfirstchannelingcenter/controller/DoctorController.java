@@ -8,6 +8,7 @@ import org.example.helthfirstchannelingcenter.utill.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class DoctorController {
     private DoctorService doctorService;
 
 
+    @PreAuthorize("hasAnyAuthority('DOCTOR')")
     @PostMapping("/savedoctor")
     public ResponseEntity<ResponseDTO> saveDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         try {
@@ -32,7 +34,7 @@ public class DoctorController {
         }
     }
 
-
+    @PreAuthorize("hasAnyAuthority('DOCTOR')")
     @PutMapping("/updatedoctor")
     public ResponseEntity<ResponseDTO> updateDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         try {
@@ -51,7 +53,7 @@ public class DoctorController {
         }
     }
 
-
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/getdoctors")
     public ResponseEntity<List<DoctorDTO>> getAllDoctors() {
         return ResponseEntity.ok(doctorService.getAllDoctors());
